@@ -70,6 +70,19 @@ const validateLinks = (links) => {
         .catch(error => console.error(error));
 };
 
+//Función para realizar estadísticas de links
+
+const statsLinks = (links) => {
+    const totalLinks = links.length;
+    const uniqueLinks = [...new Set(links.map(link => link.href))].length;
+    const brokenLinks = links.filter(link => link.status === 404).length;
+  
+    return {
+      total: totalLinks,
+      unique: uniqueLinks,
+      broken: brokenLinks,
+    };
+  }
 
 module.exports = {
     isPathAbsolute,
@@ -78,5 +91,6 @@ module.exports = {
     isMarkdownFile,
     readRoute,
     extractLinksFromFile,
-    validateLinks
+    validateLinks,
+    statsLinks
 }

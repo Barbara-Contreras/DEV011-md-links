@@ -46,7 +46,7 @@ describe('mdLinks', () => {
     const route = 'README.md';
     return mdLinks(route)
       .then((links) => {
-        expect(Array.isArray(links)).toBe(true);
+        expect(Array.isArray(links)).toBe(false);
       });
   });
 });

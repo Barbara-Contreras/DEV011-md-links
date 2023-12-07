@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const { isPathAbsolute, convertAbsolute, existRoute, readRoute, isMarkdownFile, extractLinksFromFile, validateLinks } = require('./function');
+const { isPathAbsolute, convertAbsolute, existRoute, readRoute, isMarkdownFile, extractLinksFromFile, validateLinks, statsLinks } = require('./function');
+const { getHeapStatistics } = require('v8');
 
 const mdLinks = (route) => {
   return new Promise((resolve, reject) => {
@@ -8,7 +9,6 @@ const mdLinks = (route) => {
     const isAbsoluteRoute = isPathAbsolute(route)
     //Convertir a ruta absoluta
     const newRouteAbsolute = isAbsoluteRoute ? route : convertAbsolute(route)
-    console.log({ newRouteAbsolute });
     //Verificar que sea un archivo Markdown
     if (!isMarkdownFile(newRouteAbsolute)) {
       reject('La ruta no apunta a un archivo Markdown');
@@ -22,7 +22,10 @@ const mdLinks = (route) => {
         })
         .then((validatedLinks) => {
           // Aquí `validatedLinks` contendrá los enlaces con su estado validado
-          resolve(validatedLinks);
+          resolve({
+            links: validatedLinks,
+            stats: statsLinks(validatedLinks),
+          });
         })
         .catch((error) => {
           reject(error);
