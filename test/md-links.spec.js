@@ -1,5 +1,5 @@
 const { mdLinks } = require('../src/index.js');
-const { convertAbsolute, isMarkdownFile, readRoute, validateLink, validateLinks } = require('../src/function.js');
+const { convertAbsolute, isMarkdownFile, readRoute, validateLinks, statsLinks } = require('../src/function.js');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
@@ -71,4 +71,21 @@ describe('validateLinks', () => {
             { href: 'https://www.nonexistent.com', status: 404, statusText: 'FAIL' },
         ]);
     });
+});
+
+describe('statsLinks', () => {
+  test('Debería devolver estadísticas correctas para un conjunto de enlaces', () => {
+    const links = [
+      { href: 'https://ejemplo.com/enlace1', status: 200 },
+      { href: 'https://ejemplo.com/enlace2', status: 404 },
+      { href: 'https://ejemplo.com/enlace3', status: 500 },
+    ];
+
+    const result = statsLinks(links);
+
+    // Verifica que las estadísticas sean correctas
+    expect(result.total).toBe(3);
+    expect(result.unique).toBe(3); // Puedes ajustar esto según tu lógica para enlaces únicos
+    expect(result.broken).toBe(2);
+  });
 });
