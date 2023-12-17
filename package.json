@@ -1,8 +1,11 @@
 {
-  "name": "md-links",
+  "name": "md-links-barbara-contreras",
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
+  },
+  "bin": {
+    "md-links": "src/cli.js"
   },
   "bootcamp": {
     "createdAt": "2023-09-22T12:23:39.903Z",
@@ -16,7 +19,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage --verbose",
+    "md-links": "node ./src/cli.js"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +29,8 @@
     "axios": "^1.6.2",
     "commander": "^11.1.0",
     "markdown-it": "^13.0.2",
-    "markdown-link-extractor": "^3.1.0"
+    "markdown-link-extractor": "^3.1.0",
+    "md-links-barbara-contreras": "^0.1.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { mdLinks } = require('.');
 
 const process = require('process');
@@ -8,32 +9,40 @@ const stats = args.includes('--stats');
 
 mdLinks(path, { validate: validate, stats: stats })
     .then((result) => {
+        let output = '';
+
         if (!validate && !stats) {
             for (let i = 0; i < result.links.length; i++) {
-                console.log(`href: ${result.links[i].href}`);
-                console.log(`text: ${result.links[i].text}`);
-                console.log(`file: ${result.links[i].file}`);
-                console.log('------------------------');
+                output += `href: ${result.links[i].href}\n`;
+                output += `text: ${result.links[i].text}\n`;
+                output += `file: ${result.links[i].file}\n`;
+                output += '------------------------\n';
             }
         } else {
             if (validate) {
                 for (let i = 0; i < result.links.length; i++) {
                     const status = result.links[i].status === 'OK' ? 'ok' : 'fail';
-                    console.log(`href: ${result.links[i].href}`);
-                    console.log(`text: ${result.links[i].text}`);
-                    console.log(`file: ${result.links[i].file}`);
-                    console.log(`status: ${result.links[i].status}`);
-                    console.log(`ok: ${status}`);
-                    console.log('------------------------');
+                    output += `href: ${result.links[i].href}\n`;
+                    output += `text: ${result.links[i].text}\n`;
+                    output += `file: ${result.links[i].file}\n`;
+                    output += `status: ${result.links[i].status}\n`;
+                    output += `ok: ${status}\n`;
+                    output += '------------------------\n';
                 }
             }
 
             if (stats) {
-                console.log(`Total: ${result.stats.total}`);
-                console.log(`Unique: ${result.stats.unique}`);
-                console.log(`Broken: ${result.stats.broken}`);
+                output += `Total: ${result.stats.total}\n`;
+                output += `Unique: ${result.stats.unique}\n`;
+
+                // Añadir esta condición para evitar imprimir los enlaces rotos cuando solo se pide --stats
+                if (validate) {
+                    output += `Broken: ${result.stats.broken}\n`;
+                }
             }
         }
+        // Imprimir la salida al final
+        console.log(output);
     })
     .catch((error) => {
         console.error(error);

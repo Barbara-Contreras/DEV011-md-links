@@ -20,13 +20,13 @@ const mdLinks = (route, options = { validate: false, stats: false }) => {
           const links = extractLinksFromFile(files, newRouteAbsolute);
           if (!options.validate && !options.stats) {
             // Si no se proporcionan opciones de validación o estadísticas,
-            // simplemente resuelve los enlaces
+            // Simplemente resuelve los enlaces
             resolve({
               links,
             });
           } else {
             // Si se proporcionan opciones de validación o estadísticas,
-            // realiza las operaciones necesarias
+            // Realiza las operaciones necesarias
             validateLinks(links)
               .then((validatedLinks) => {
                 if (options.stats) {
