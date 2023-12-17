@@ -21,7 +21,7 @@ mdLinks(path, { validate: validate, stats: stats })
         } else {
             if (validate) {
                 for (let i = 0; i < result.links.length; i++) {
-                    const status = result.links[i].status === 'OK' ? 'ok' : 'fail';
+                    const status = result.links[i].status <= 400 ? 'ok' : 'fail';
                     output += `href: ${result.links[i].href}\n`;
                     output += `text: ${result.links[i].text}\n`;
                     output += `file: ${result.links[i].file}\n`;
