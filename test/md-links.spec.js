@@ -53,20 +53,20 @@ it('Debería devolver los enlaces de un archivo Markdown existente', () => {
       expect(Array.isArray(links)).toBe(false);
     });
 });
-test('should resolve with links array when no options provided', () => {
+test('Debería resolverse con una matriz de enlaces cuando no se proporcionen opciones', () => {
   return mdLinks('README.md').then(result => {
     expect(result.links).toBeDefined();
     // Añade más expectativas según sea necesario
   });
 });
-test('should resolve with links and stats when stats option is provided', () => {
+test('Debería resolverse con enlaces y estadísticas cuando se proporciona la opción de estadísticas', () => {
   return mdLinks('README.md', { stats: true }).then(result => {
     expect(result.links).toBeDefined();
     expect(result.stats).toBeDefined();
     // Añade más expectativas según sea necesario
   });
 });
-test('should reject with an error message when the file does not exist', () => {
+test('Debería rechazar con un mensaje de error cuando el archivo no existe', () => {
   return expect(mdLinks('ruta-inexistente.md')).rejects.toMatch('La ruta no existe');
 });
 });
@@ -111,7 +111,7 @@ describe('statsLinks', () => {
 });
 
 describe('readRoute', () => {
-  test('should reject with an error when reading the file fails', () => {
+  test('Debería rechazar con un error cuando falla la lectura del archivo', () => {
     // Simula un error al leer el archivo
     const fakeError = new Error('Error al leer el archivo');
     const readFileMock = jest.spyOn(fs, 'readFile');
